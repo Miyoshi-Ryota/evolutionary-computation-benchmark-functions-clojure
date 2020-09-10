@@ -26,3 +26,32 @@
                (* a (Math/pow (- %  (Math/pow %2 2)) 2))
                (Math/pow (- b %2) 2)) x_i1)
        (apply +))))
+
+(defn shift
+  "shift x by o."
+  [o x]
+  {:pre [(s/valid? #(= (count o) (count %)) x)]}
+  (map #(- %1 %2) x o))
+
+(defn- rotate-matrix-2d
+  "return value is [col, row] matrix."
+  [m]
+  [[(Math/cos (* Math/PI m)) (Math/sin (* Math/PI m))]
+   [(* -1 (Math/sin (* Math/PI m))) (Math/cos (* Math/PI m))]])
+
+(defn- multiply
+  [x_row_vector y_col_vector]
+  {:pre [(s/valid? (s/coll-of number?) x_row_vector)
+         (s/valid? (s/coll-of number?) y_col_vector)
+         (s/valid? (= (count x_row_vector) (count %)) y_col_vector)]
+   :post [(s/valid? number? %)]}
+  (->> (map #(* %1 %2) x_row_vector y_col_vector)
+       (apply +)))
+
+(defn rotate
+  "Limitation: Now, this function takes only 2 dimension x."
+  [m x]
+  {:pre [(s/valid? (s/coll-of number?) x)
+         (s/valid? #(= 2 (count %)) x)]}
+  (let [rotate-matrix (rotate-matrix-2d m)]
+    (map (partial multiply x) rotate-matrix)))
