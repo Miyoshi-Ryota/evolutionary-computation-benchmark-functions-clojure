@@ -2,9 +2,20 @@
 
 A Clojure library designed to run benchmark functions which are famous in evolutionary computation groups.
 
+The library status is under development.
+
+## Implemented
+### Functions
+* rastrigin-function
+* rosenbrock-function
+
+### Util
+* shift
+* rotate in 2 dimension.
+
 ## Usage
 
-FIXME
+I will write docs...
 
 ## License
 
