@@ -43,7 +43,7 @@
   [x_row_vector y_col_vector]
   {:pre [(s/valid? (s/coll-of number?) x_row_vector)
          (s/valid? (s/coll-of number?) y_col_vector)
-         (s/valid? (= (count x_row_vector) (count %)) y_col_vector)]
+         (s/valid? #(= (count x_row_vector) (count %)) y_col_vector)]
    :post [(s/valid? number? %)]}
   (->> (map #(* %1 %2) x_row_vector y_col_vector)
        (apply +)))
