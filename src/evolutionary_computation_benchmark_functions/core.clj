@@ -41,6 +41,22 @@
        a
        (Math/exp 1))))
 
+(defn weierstrass-function
+  "see definition:
+  https://bee22.com/resources/Liang%20CEC2014.pdf
+  In above site, recommended variable values are `a=0.5, b=3, kmax=20`"
+  [a b k-max x]
+  (let [dimension (count x)
+        k (take (+ 1 k-max) (iterate inc 0))
+        first-item-function (fn [x_i] (apply + (map
+                                        #(* (Math/pow a %)
+                                            (Math/cos (* 2 Math/PI (Math/pow b %) (+ x_i 0.5)))) k)))]
+    (- (apply + (map first-item-function x))
+       (* dimension (apply +
+                           (map #(* (Math/pow a %)
+                                    (Math/cos (* 2 Math/PI (Math/pow b %) 0.5))) k))))))
+
+
 (defn shift
   "shift x by o."
   [o x]
