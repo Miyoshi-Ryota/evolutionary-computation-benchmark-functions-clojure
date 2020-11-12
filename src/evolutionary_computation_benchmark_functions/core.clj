@@ -27,6 +27,20 @@
                (Math/pow (- b %2) 2)) x_i1)
        (apply +))))
 
+(defn ackley-function
+  "see definition: https://www.sfu.ca/~ssurjano/ackley.html
+   In above site, variable is ```Recommended variable values are: a = 20, b = 0.2 and c = 2π```"
+  [a b c x]
+  (let [dimension (count x)]
+    (+ (* (* -1 a)
+          (Math/exp (* (* -1 b)
+                       (Math/sqrt (* (/ 1 dimension)
+                                     (apply + (map #(* % %) x)))))))
+       (* -1 (Math/exp (* (/ 1 dimension)
+                          (apply + (map #(Math/cos (* c %)) x)))))
+       a
+       (Math/exp 1))))
+
 (defn shift
   "shift x by o."
   [o x]
