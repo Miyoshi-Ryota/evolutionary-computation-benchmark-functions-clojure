@@ -61,7 +61,7 @@
   http://benchmarkfcns.xyz/benchmarkfcns/happycatfcn.html"
   [alpha x]
   (let [dimension (count x)]
-    (+ (Math/pow (- (apply + (map #(Math/pow % 2) x)) dimension) (* 2 alpha))
+    (+ (Math/pow (Math/pow (- (apply + (map #(Math/pow % 2) x)) dimension) 2) alpha)
        (/ (* 0.5 (apply + (map #(Math/pow % 2) x)) (apply + x)) dimension)
        0.5)))
 
