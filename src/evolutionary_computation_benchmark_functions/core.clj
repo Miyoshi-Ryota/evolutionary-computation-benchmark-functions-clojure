@@ -56,13 +56,22 @@
                            (map #(* (Math/pow a %)
                                     (Math/cos (* 2 Math/PI (Math/pow b %) 0.5))) k))))))
 
+(defn magnitude-of-vector
+  "ベクトルの大きさ"
+  [x]
+  (Math/sqrt (apply + (map #(Math/pow % 2) x))))
+
 (defn happy-cat-function
   "see definition:
   http://benchmarkfcns.xyz/benchmarkfcns/happycatfcn.html"
   [alpha x]
   (let [dimension (count x)]
-    (+ (Math/pow (Math/pow (- (apply + (map #(Math/pow % 2) x)) dimension) 2) alpha)
-       (/ (* 0.5 (apply + (map #(Math/pow % 2) x)) (apply + x)) dimension)
+    (+ (Math/pow
+         (Math/pow (- (magnitude-of-vector x) dimension) 2)
+         alpha)
+       (/ (+ (* 0.5 (magnitude-of-vector x))
+             (apply + x))
+          dimension)
        0.5)))
 
 (defn shift
